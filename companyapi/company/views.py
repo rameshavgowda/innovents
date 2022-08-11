@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import company
-from .serializers import companyserializer, companyserializer1
+from .serializers import companyserializer
 from rest_framework.generics import ListAPIView, CreateAPIView,RetrieveAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView
 from . pagination import MypagePagination
 
@@ -10,7 +10,7 @@ class Create_company(CreateAPIView):
 
 class Update_company(RetrieveUpdateAPIView):
     queryset=company.objects.all()
-    serializer_class=companyserializer1
+    serializer_class=companyserializer
 
 class Destroy_company(RetrieveDestroyAPIView):
     queryset=company.objects.all()
