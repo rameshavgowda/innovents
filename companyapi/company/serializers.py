@@ -1,12 +1,8 @@
+
 from . models import company
 from rest_framework import serializers
 import re
 
-def Compay_code_validate(value):
-    code_pattern='^[A-Z][A-Z]\d{2}(E|N)$'
-    result = re.match(code_pattern, value)
-    if not result:
-        raise serializers.ValidationError("company code should be there in format of HB78E 0r HB78N ")
 
 class companyserializer1(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +16,7 @@ class companyserializer1(serializers.ModelSerializer):
             return value
 
 class companyserializer(serializers.ModelSerializer):
-    Company_code = serializers.CharField(validators=[Compay_code_validate])
+    
     class Meta:
         model= company
         fields='__all__'
@@ -31,5 +27,10 @@ class companyserializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Strength should be a positive integer")
             return value
 
-
+    def validate_Company_code(self, value):
+        code_pattern='^[A-Z][A-Z]\d{2}(E|N)$'
+        result = re.match(code_pattern, value)
+        if not result:
+            raise serializers.ValidationError("company code should be there in format of HB78E 0r HB78N ")
+        return value
 
